@@ -16,7 +16,7 @@ e_wheel = lambda i:  cos(theta[i])*e['xi'] + sin(theta[i])*e['eta'] # e_z и н�
 
 
 #СТРОЕНИЕ ПЛАТФОРМЫ НА КОЛЁСАХ
-SP = lambda i: cos(beta[i]) * e['xi'] + sin(beta[i])*e['eta']
+SP = lambda i: cos(beta[i]) * e['xi'] + sin(beta[i])*e['eta']  # add `R`
 PC = lambda i: d*e_wheel(i) - h*e['z']
 CD = lambda i: -r*e['z']
 DC = lambda i: r*e['z']
