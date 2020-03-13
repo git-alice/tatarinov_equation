@@ -1,1 +1,3 @@
-# tatarinov_equation
+## Уравнения Татаринова для треугольной платформы на рояльных колесах
+
+[Описание уравнение (А.А. Зобова)](http://elibrary.udsu.ru/xmlui/bitstream/handle/123456789/9494/Zobova.pdf)
