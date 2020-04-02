@@ -54,7 +54,7 @@ def vec_by_2dots(dot_one, dot_two):
 #         print(vec_name)
     except Exception as e:
         try:
-            res_vec = getattr(structure, vec_name[::-1])(i)
+            res_vec = -getattr(structure, vec_name[::-1])(i)
 #             print('-' + vec_name[::-1])
             # print('Обратный вектору {}?'.format(vec_name))
         except Exception as e:
@@ -92,9 +92,8 @@ def euler(dot_one, dot_two):
     '''уравнение эйлера по 2 точкам для первой точки'''
     if dot_one == dot_two:
         cprint('Уравнениу Эйлера для одной точки', 'red')
-#     print(vec_by_2dots(dot_two, dot_one)(0))
     return lambda i: v[dot_two['name']](i) + cross(omega[intersection(dot_one, dot_two)[0]](i),
-                                                   vec_by_2dots(dot_one, dot_two)(i))
+                                                   -vec_by_2dots(dot_one, dot_two)(i))
 
 
 def dalamber(mass, velocity, F, delta_r, K, M, omega_delta):

@@ -10,7 +10,7 @@ t = symbols('t')
 # Индексы
 # i, P, C = symbols('i, P, C', cls=Idx) # i, P и С ???
 # (проекция вилки на e_z, проекция вилки на e_wheel, радиус, масса)
-h, d, r = symbols('h,d,r')
+h, d, r, R = symbols('h,d,r,R')
 # Тензор инерции
 # J = symbols('J') # J = IndexedBase('J')
 # Углы
