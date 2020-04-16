@@ -1,3 +1,6 @@
+#pycharm
+.idea/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -133,3 +136,4 @@ dmypy.json
 
 # pytype static type analyzer
 .pytype/
+/tatarinov/problems/
