@@ -8,7 +8,7 @@ class Database:
     root: Path = Path('./')
 
     @classmethod
-    def save(cls, obj: Serializable, filename: str, **kwargs: Dict[sqtr, Any]) -> None:
+    def save(cls, obj: Serializable, filename: str, **kwargs: Dict[str, Any]) -> None:
         """
 
         @param filename: str
