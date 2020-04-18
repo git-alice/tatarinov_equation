@@ -2,25 +2,20 @@ from sympy import IndexedBase, Idx, Matrix
 from sympy import symbols, cos, sin
 from sympy.physics.vector import dynamicsymbols
 
-p = IndexedBase('p')
 P = IndexedBase('P')
 Q = IndexedBase('Q')
+p = IndexedBase('p')
 v = IndexedBase('v')
-_omega = IndexedBase('omega')
-_v = IndexedBase('v')
 k = symbols('k', cls=Idx)
 i = symbols('i', cls=Idx)
-t, alpha = symbols('t, alpha')
 
-x, y = dynamicsymbols('x, y')
+t = symbols('t')
 
-e = {
-    'x': Matrix([1, 0]),
-    'y': Matrix([0, 1]),
-    'xi': Matrix([cos(alpha), sin(alpha)]),
-    'eta': Matrix([-sin(alpha), cos(alpha)])
-}
-
+# TODO Под вопросом:
 
 def create_fs(smt):
     raise Exception('Что то пошло не так!')
+
+_omega = IndexedBase('omega')
+_v = IndexedBase('v')
+
