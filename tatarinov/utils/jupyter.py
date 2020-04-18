@@ -27,14 +27,14 @@ def display_obj(obj: Any, description: str = None) -> None:
     display(obj)
 
 
-def debug_display(obj: Any, description: str = None) -> None:
+def debug_display(obj: Any = None, description: str = None) -> None:
     """
 
     @param obj: Any, Любой объект для промежуточного вывода
     @param description: str, Описание вывода
     @return: None
     """
-    display(Markdown('_dubug output ↓_'))
-    display(Markdown(f'__{description}__'))
-    display(obj)
+    display(Markdown('_dubug output:_ '))
+    display(Markdown(f'__{description}__')) if description else None
+    display(obj) if obj is not None else None
     display(Markdown('---'))
