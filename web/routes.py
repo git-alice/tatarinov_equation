@@ -1,7 +1,8 @@
 """Route declaration."""
 from flask import current_app as app
 from flask import render_template
-from web.utils import load
+
+from web.control.latex import all_equations
 
 @app.route('/')
 def home():
@@ -13,12 +14,12 @@ def home():
                            title="WebEquations",
                            description="Description")
 
-@app.route('/latex')
+@app.route('/latex/')
 def latex():
     # load('S')
-    with open('/home/alice/Documents/Course/tatarinov_equation/web/tmp.txt', 'r') as file:
-        data = file.read()
-    return render_template('latex.html',
-                            latex=data)
+    # with open('/home/alice/Documents/Course/tatarinov_equation/web/tmp.txt', 'r') as file:
+    #     data = file.read()
+    data = all_equations()
+    return render_template('latex.html', data=data)
 
 
