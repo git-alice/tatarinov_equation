@@ -117,37 +117,29 @@ class TatarinovSystem(MechanicalSystem):
             res += bracket_sum[x]
         return res
 
-    def solve_tatarinov_equations(self):
-        te = [self.tatarinov_equations[_i] for _i in range(3)]
-        sol = solve(te, [Derivative(self.create_fs(_x), t) for _x in self.right_part_Eqs(self.omega_equations)])
-        return sol
+    # def solve_tatarinov_equations(self):
+    #     te = [self.tatarinov_equations[_i] for _i in range(3)]
+    #     sol = solve(te, [Derivative(self.create_fs(_x), t) for _x in self.right_part_Eqs(self.omega_equations)])
+    #     return sol
 
     def tatarinov_equation(self, i):
-        left, right = 0, 0 # Начальные значения правых частей
+        debug_display(description=f'Уравнение #{i}') if self.debug else None
         left = self.L_star.args[1]
-        #         left = self.create_fs(left.diff(self.right_part_Eqs(self.omega_equations)[i])).diff(t)
         left = left.diff(self.right_part_Eqs(self.omega_equations)[i])
         left = simplify(left)
         left = left.diff(t)
         left = simplify(self.sub_constraints(left))
         _ = self.poisson_bracket(self.P[i].args[1], self.L_star.args[1])
         left += simplify(self.sub_constraints(_))
-        #         left = self.create_fs(left)
-        if self.debug:
-            display_obj(left, description='Левая часть уравнения')
+        debug_display(left, description='Левая часть уравнения') if self.debug else None
 
-        right += self.poisson_bracket(self.P[i].args[1], self.create_bracket_sum())
+        right = self.poisson_bracket(self.P[i].args[1], self.create_bracket_sum())
         right += simplify(self.Q_dw_by_dv(i))
-        #         right = self.create_fs(right)
-        if self.debug:
-            display_obj(right, description='Правая часть уравнения')
-
+        debug_display(right, description='Правая часть уравнения') if self.debug else None
         ps = lambda i: self.sub_constraints(self.diff_hack(self.L.args[1], self.right_part_Eqs(self.v_equations)[i]))
         self.tatarinov_equations[i] = Eq(left, right).subs({p[1]: ps(0), p[2]: ps(1), p[3]: ps(2)})
-
-        #         self.tatarinov_equations[i] = self.create_fs(simplify(self.tatarinov_equations[i]))
         self.tatarinov_equations[i] = simplify(self.tatarinov_equations[i])
         return self.tatarinov_equations[i]
 
-    def display_tatarinov_equations(self):
+    def display_equations(self):
         display_list(self.tatarinov_equations)
