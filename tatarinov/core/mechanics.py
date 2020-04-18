@@ -1,12 +1,18 @@
 import sympy as sp
-from sympy import Symbol
+from sympy import Symbol, solve, Eq
 from sympy import diff
 
+from tatarinov.utils.jupyter import debug_display
 
-class MechanicalSystem():
+# TODO: Этот класс скорее всего не нужен
+
+
+class MechanicalSystem:
     def __init__(self):
         self.p = None
         self.q = None
+        self.constraints = None
+        self.debug = True
 
     def set_q(self, q):
         self.q = q
@@ -56,7 +62,10 @@ class MechanicalSystem():
 
     def set_constraints(self, constraints):
         """ Setting up constraints """
-        self.constraints = constraints
+        debug_display(description=f'Solving by: diff({self.q})') if self.debug else None
+        solved_constraints_dict = solve(constraints, [el.diff() for el in self.q], dict=True)[0]
+        solved_constraints = [Eq(k, v) for k, v in solved_constraints_dict.items()]
+        self.constraints = solved_constraints
 
     def sub_constraints(self, func):
         """ Substitutes constraints in the equation
