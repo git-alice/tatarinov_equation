@@ -13,11 +13,22 @@
   </script>
 
   <style>
-    latex-js {
-      display: inline-block;
-      width: 40%;
-      border: 1px solid red;
-      margin-right: 2em;
+
+      .wrapper {
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+      }
+      .eqs {
+          width: 20%;
+          height: 60%;
+          border: 1px solid black;
+      }
+
+      latex-js {
+        width: 70%;
+        border: 1px solid black;
+        margin-right: 2em;
     }
   </style>
 
@@ -25,13 +36,38 @@
 </head>
 
 <body>
-  <h1>Compiling LaTeX</h1>
+  <h1></h1>
+  <div class="wrapper">
+      <div class="eqs">
 
+      </div>
   <latex-js>
-  
-   {{ latex }}
-  
+    \documentclass{article}
+
+    \usepackage{comment, multicol}
+    \usepackage{hyperref}
+
+    \usepackage{calc,pict2e,picture}
+    \usepackage{textgreek,textcomp,gensymb,stix}
+
+    \setcounter{secnumdepth}{2}
+
+    \title{\LaTeX}
+    % \author{$\varheartsuit$ by AlexeyZhuchkov}
+
+    \begin{document}
+
+    \maketitle
+      {% for item in data %}
+          {{ item.description }}
+
+          {{ item.str_saved_time_ago }} ({{ item.str_when_saved }})
+
+          $$ {{ item.latex }} $$
+      {% endfor %}
+    \end{document}
   </latex-js>
+  </div>
 
 </body>
 
