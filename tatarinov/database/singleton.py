@@ -54,17 +54,17 @@ class Database:
             return pickle.load(f)
 
     @classmethod
-    def get_all_names(cls, ext: str = 'pickle') -> Generator[Path, None, None]:
+    def get_all_names(cls, ext: str = 'pickle') -> List[str]:
         """
 
         @param ext: str, Расширение файлов
         @return: List[str], Список названия файлов
         """
-        return cls.root.glob(f'*.{ext}')
+        return [f.stem for f in cls.root.glob(f'*.{ext}') if f.is_file()]
 
     @classmethod
     def load_all(cls) -> List[Pickled]:
-        objs = [cls.load(f.stem) for f in cls.get_all_names() if f.is_file()]
+        objs = [cls.load(f) for f in cls.get_all_names()]
         return objs
 
 
