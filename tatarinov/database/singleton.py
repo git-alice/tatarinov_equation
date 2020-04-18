@@ -1,7 +1,7 @@
-from tatarinov.database.pickle import Pickled, SEq, SMatrix
+from tatarinov.database.pickle import Pickled
 import cloudpickle as pickle
 from pathlib import Path
-from typing import Dict, Any, Union
+from typing import Dict, Any, Union, Generator, List
 
 
 class Database:
@@ -42,20 +42,30 @@ class Database:
             print(e)
 
     @classmethod
-    def load(cls, filename: Union[str, Path]) -> Pickled:
+    def load(cls, filename: str) -> Pickled:
         """
 
         @param filename: str, Путь к файлу относительно корня базы данных
         @return: Pickled
         """
-        filename = Path(f'{filename}.pickle') if type(filename) == str else filename
+        filename = Path(f'{filename}.pickle')
         print(f'Loading from: {cls.root / filename}') if cls.debug else None
         with open(cls.root / filename, 'rb') as f:
             return pickle.load(f)
 
     @classmethod
-    def load_all(cls, ext: str = 'pickle'):
-        objs = [cls.load(f.stem) for f in cls.root.glob(f'*.{ext}') if f.is_file()]
+    def get_all_names(cls, ext: str = 'pickle') -> Generator[Path, None, None]:
+        """
+
+        @param ext: str, Расширение файлов
+        @return: List[str], Список названия файлов
+        """
+        return cls.root.glob(f'*.{ext}')
+
+    @classmethod
+    def load_all(cls) -> List[Pickled]:
+        objs = [cls.load(f.stem) for f in cls.get_all_names() if f.is_file()]
         return objs
+
 
 db = Database
