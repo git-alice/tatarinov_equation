@@ -1,6 +1,8 @@
+from sympy import Derivative
 from tatarinov.utils.pprint import cpprint
 
-# from tatarinov.problems.triangular_platform.structure import *
+from tatarinov.problems.triangular_platform import structure
+from tatarinov.problems.triangular_platform.variables import *
 
 def fkey(dict_key):
     '''Нужна чтобы ключами словаря делать словарь, почему таак приходится делать не очень ясно
@@ -25,7 +27,7 @@ def cross(a, b):
 def vec_invert(vec):
     """из вектора AB получает BA
        (вектор это лямбда функция)"""
-    return vec * (-1);
+    return vec * (-1)
 
 
 def intersection(dict_one, dict_two, key='where'):
