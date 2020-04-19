@@ -54,6 +54,14 @@ class Database:
             return pickle.load(f)
 
     @classmethod
+    def all_problems(cls) -> List[str]:
+        """
+
+        @return: List[str], Список названия задач
+        """
+        return [p.stem for p in cls.root.glob('*') if p.is_dir()]
+
+    @classmethod
     def get_all_names(cls, ext: str = 'pickle') -> List[str]:
         """
 
@@ -66,6 +74,7 @@ class Database:
     def load_all(cls) -> List[Pickled]:
         objs = [cls.load(f) for f in cls.get_all_names()]
         return objs
+
 
 
 db = Database
