@@ -62,6 +62,8 @@ class MechanicalSystem:
 
     def set_constraints(self, constraints):
         """ Setting up constraints """
+        if not self.q:
+            raise Exception('Значения `q` не заданы"')
         debug_display(description=f'Solving by: diff({self.q})') if self.debug else None
         solved_constraints_dict = solve(constraints, [el.diff() for el in self.q], dict=True)[0]
         solved_constraints = [Eq(k, v) for k, v in solved_constraints_dict.items()]
