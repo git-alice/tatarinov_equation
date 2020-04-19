@@ -29,7 +29,6 @@ class TatarinovSystem(MechanicalSystem):
         self.Q = None
         self.P = None
 
-
     def set_omega_equations(self, omegas, equations):
         omega_equations = [Eq(omega, equation) for omega, equation in zip(omegas, equations)]
         self.omega_equations = omega_equations
@@ -88,30 +87,30 @@ class TatarinovSystem(MechanicalSystem):
     def set_Q(self, Q):
         self.Q = Q
 
-    def Q_dw_by_dv(self, i):
+    def Q_dv_by_dw(self, i):
         """
         TODO: Сделать нормальное суммирование
 
         @param i: ???
         @return:
         """
-        Q_dw_by_dv = lambda i, a: self.Q[i] * Derivative(
+        Q_dv_by_dw = lambda i, a: self.Q[i] * Derivative(
             self.right_part_Eqs(self.sub_constraints_to_list(self.v_equations))[i],
             self.right_part_Eqs(self.omega_equations)[a]).doit()
-        # Q_dw_by_dv_sum = lambda a: Q_dw_by_dv(0, a) + Q_dw_by_dv(1, a) + Q_dw_by_dv(2, a) + Q_dw_by_dv(3,
-        #                                                                                                a) + Q_dw_by_dv(
-        #     4, a)
-        def Q_dw_by_dv_sum(a):
-            _ = 0
-            for idx in range(len(self.omega_equations)):
-                _ += Q_dw_by_dv(idx, a)
-            return _
-        return Q_dw_by_dv_sum(i)
+
+        def Q_dv_by_dw_sum(a):
+            sum = 0
+            for idx in range(len(self.q)):
+                sum += Q_dv_by_dw(idx, a)
+            return sum
+
+        return Q_dv_by_dw_sum(i)
 
     def create_bracket_sum(self):
         """ not good """
         # return  _nu1*(p[1]*cos(alpha) + p[2]*sin(alpha)) + _nu2*(-p[1]*sin(alpha) + p[2]*cos(alpha)) + _nu3*p[3]
-        bracket_sum = [_x * _y for _x, _y in zip(self.right_part_Eqs(self.P), self.right_part_Eqs(self.omega_equations))]
+        bracket_sum = [_x * _y for _x, _y in
+                       zip(self.right_part_Eqs(self.P), self.right_part_Eqs(self.omega_equations))]
         res = 0
         for x in range(3):
             res += bracket_sum[x]
@@ -134,7 +133,7 @@ class TatarinovSystem(MechanicalSystem):
         debug_display(left, description='Левая часть уравнения') if self.debug else None
 
         right = self.poisson_bracket(self.P[i].args[1], self.create_bracket_sum())
-        right += simplify(self.Q_dw_by_dv(i))
+        right += simplify(self.Q_dv_by_dw(i))
         debug_display(right, description='Правая часть уравнения') if self.debug else None
         ps = lambda i: self.sub_constraints(self.diff_hack(self.L.args[1], self.right_part_Eqs(self.v_equations)[i]))
         self.tatarinov_equations[i] = Eq(left, right).subs({p[1]: ps(0), p[2]: ps(1), p[3]: ps(2)})
