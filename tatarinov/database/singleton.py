@@ -18,9 +18,9 @@ class Database:
         cls.root = Path(root)
 
     @classmethod
-    def save(cls, obj: Pickled, filename: str, **kwargs: Dict[str, Any]) -> None:
+    def save(cls, obj: Any, filename: str, **kwargs: Dict[str, Any]) -> None:
         """
-
+    
         @param filename: str
         @param obj: Pickled
         @param kwargs: Dict[str, Any]
