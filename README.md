@@ -21,7 +21,7 @@
 git clone https://github.com/git-alice/tatarinov_equation.git
 ```
 
-Установить 
+Установить зависимости
 ```shell script
 pip install -r requirements.txt
 ```
@@ -32,5 +32,5 @@ pip install -e .
 ```
 
 ###  TODO:
-Так как в пакете `sympy` есть встроенный модуль mechanics, о котором я поздно узнал, то классы и логику в какой-то степени можно переписать используя данные возможности.
+Так как в пакете `sympy` есть встроенный модуль [mechanics](https://docs.sympy.org/latest/modules/physics/mechanics/index.html), о котором я поздно узнал, то классы и логику в какой-то степени можно переписать используя данные возможности.
  
