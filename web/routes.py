@@ -2,29 +2,24 @@
 from flask import current_app as app
 from flask import render_template
 
-from web.control.latex import all_equations, equation_by_name, all_equation_names
+from web.control.latex import all_equations, equation_by_name, all_equation_names, all_problems
 
 @app.route('/')
 def home():
-    """Landing page."""
-    nav = [{'name': 'Дом', 'url': '#'},
-           {'name': 'Latex', 'url': '/latex/'}]
+    problems = all_problems()
     return render_template('home.html',
-                           nav=nav,
-                           title="WebEquations",
-                           description="Description")
+                           title="Вэб модуль для просмотра уравнений",
+                           description="Задачи: ",
+                           problems=problems)
 
-@app.route('/latex/')
-def latex():
-    # load('S')
-    # with open('/home/alice/Documents/Course/tatarinov_equation/web/tmp.txt', 'r') as file:
-    #     data = file.read()
-    names = all_equation_names()
-    data = all_equations()
+@app.route('/<problem>/latex/')
+def latex(problem):
+    names = all_equation_names(problem)
+    data = all_equations(problem)
     return render_template('latex.html', names=names, data=data)
 
-@app.route('/latex/<objname>')
-def latex_by_name(objname):
-    names = all_equation_names()
-    data = equation_by_name(objname)
+@app.route('/<problem>/latex/<objname>')
+def latex_by_name(problem, objname):
+    names = all_equation_names(problem)
+    data = equation_by_name(problem, objname)
     return render_template('latex.html', names=names, data=data)
