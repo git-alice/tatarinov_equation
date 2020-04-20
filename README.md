@@ -3,12 +3,16 @@
 ### Описание 
 
 #### Уравнениния:
-<img src="https://latex.codecogs.com/gif.latex?\frac{d}{dt} \frac{\partial L*}{\partial \omega_{\alpha}} + \{P_{\alpha}, L*\} = \{P_{\alpha}, \sum_{\mu}{\omega_{\mu} P_{\mu}} \} + \sum_{i}{Q_i \frac{\partial v_i}{ \partial \omega_{\alpha}}}"/> 
-где 
- - <img src="https://latex.codecogs.com/gif.latex?\{f, g\} = \sum_{i=1}^{N} \left( \frac{\partial f}{\partial q_{i}} \frac{\partial g}{\partial p_{i}} - \frac{\partial f}{\partial p_i} \frac{\partial g}{\partial q_i}\right)"/>
- -  <img src="https://latex.codecogs.com/gif.latex?\sum_{\alpha}{P_{\alpha} \omega_{\alpha}} = \sum_i{p_iv_i}"/>
- -  <img src="https://latex.codecogs.com/gif.latex?v_i = \dot{q}"/>
-[Описание уравнение (А.А. Зобова)](http://elibrary.udsu.ru/xmlui/bitstream/handle/123456789/9494/Zobova.pdf)
+
+![main_eq](imgs/tatarinov.gif)
+ 
+где:
+ 
+ -  ![1](imgs/poisson_bracket.gif)
+ -  ![2](imgs/description1.gif)
+ -  ![3](imgs/description2.gif) 
+ 
+[Описание уравнение](http://elibrary.udsu.ru/xmlui/bitstream/handle/123456789/9494/Zobova.pdf) (Александра Александровна Зобова)
 
 ### Установка
 
