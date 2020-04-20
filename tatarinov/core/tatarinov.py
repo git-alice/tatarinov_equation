@@ -37,12 +37,6 @@ class TatarinovSystem(MechanicalSystem):
         v_equations = [Eq(v, equation) for v, equation in zip(vs, equations)]
         self.v_equations = v_equations
 
-    # def set_P(self):
-    #     k, mu = symbols('k, mu', cls=Idx)
-    #     left = Sum(P[k] * om[k], (k, 1, self.N)).doit()
-    #     right = Sum(p[i] * v[i], (k, 1, self.N))
-    #     Eq(left, right)
-
     def set_L(self, L):
         self.L = L
 
@@ -51,13 +45,6 @@ class TatarinovSystem(MechanicalSystem):
 
     def set_F(self, F):
         self.F = F
-
-    # def create_r(self, base_vectors):
-    #     r = {}
-    #     r['s'] = x * base_vectors['x'] + y * base_vectors['y'] # общий ли это случай?
-    #     r['p'] = r['s'] + xi * base_vectors['xi'] + eta * base_vectors['eta']
-    #     self.r = r
-    #     return self.r
 
     def create_P(self):
         equations_for_P = Eq(
@@ -115,11 +102,6 @@ class TatarinovSystem(MechanicalSystem):
         for x in range(3):
             res += bracket_sum[x]
         return res
-
-    # def solve_tatarinov_equations(self):
-    #     te = [self.tatarinov_equations[_i] for _i in range(3)]
-    #     sol = solve(te, [Derivative(self.create_fs(_x), t) for _x in self.right_part_Eqs(self.omega_equations)])
-    #     return sol
 
     def tatarinov_equation(self, i):
         debug_display(description=f'Уравнение #{i}') if self.debug else None
