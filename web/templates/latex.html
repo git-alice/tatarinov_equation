@@ -43,6 +43,11 @@
 </head>
 
 <body>
+
+  <nav class="navbar navbar-light bg-light">
+    <a class="navbar-brand" href="/">Задачи</a>
+  </nav>
+
   <div class="wrapper">
       <div class="eqs">
       <ul>
@@ -73,7 +78,8 @@
 
           Создано: {{ item.str_saved_time_ago }} ({{ item.str_when_saved }})
 
-          Выражение: $$ {{ item.latex }} $$
+          Выражение: {{ item.latex }}
+
       {% endfor %}
     \end{document}
   </latex-js>
