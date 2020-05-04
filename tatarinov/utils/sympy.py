@@ -1,6 +1,6 @@
-from sympy import Matrix, Eq, Add, symbols
+from sympy import Matrix, Eq, Add, symbols, Function, Derivative
 from sympy.abc import t
-from typing import Sequence
+from typing import Sequence, List, Any
 
 
 def _eqs_subs_vars_hack(eqs, vars):
@@ -50,3 +50,22 @@ def subs_Eqs(eq: Add, eqs: Sequence[Eq]) -> Add:
         left, right = eq.args[0], eq.args[1]
         eq = eq.subs({left: right})
     return eq
+
+
+def from_what(eq: Any, trig: bool = True) -> List[Any]:
+    """
+    @param eq: Add, Уравнение 
+    @param trig: bool, Убрать ли тригомметрические функции из списка зависимостей
+    @return: list[Any], Список функций, от которых зависит `eq`
+    """
+    what: List[Any] = []
+    if isinstance(eq, Eq):
+        _eq = eq.args[1]
+    else:
+        _eq = eq
+    if trig:
+        what += _eq.atoms(Function)
+    else:
+        raise Exception('Не реализована зависимость без тригонометрических функций')
+    what += _eq.atoms(Derivative)
+    return what
