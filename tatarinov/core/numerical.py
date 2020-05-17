@@ -1,7 +1,10 @@
 from scipy.integrate import RK45, odeint
 from sympy import lambdify
 import matplotlib.pyplot as plt
+import mplcyberpunk
+from tatarinov.utils.jupyter import debug_display
 
+plt.style.use("cyberpunk")
 
 class Integrator:
     def __init__(self, variables, equaitions):
@@ -36,25 +39,31 @@ class Integrator:
 
     def subs_to_add_eq(self, var):
         le = self._lambdify_add_eq(var)
-        return [le(_moment, *_vals) for _moment, _vals in zip(self.solution_time, self.solution[0])]
+        return [le(*_vals, _moment) for _moment, _vals in zip(self.solution_time, self.solution[0])]
 
     def integrate(self, f0, time):
-        solution = odeint(self.lambdify_eqs(), f0, time, full_output=True, mxstep=100)
+        solution = odeint(self.lambdify_eqs(), f0, time, full_output=True)
         self.solution = solution
         self.solution_time = time
 
-    def plot_eq(self, variables):
+    def plot(self, variables, f, fontsize=30):
         if type(variables) is not list:
             variables = [variables]
         for var in variables:
-            print(f'Variable: {var}')
-            fig = plt.plot(self.solution_time, self.solution[0][:, self.vars.index(var)], )
+            if type(var) is dict:
+                var_name = var.get('name')
+                debug_display(f'Variable: {var_name}')
+                plt.plot(self.solution_time, f(var_name))
+                plt.ylabel(var.get('ylabel'), fontsize=fontsize)
+                plt.xlabel(var.get('xlabel'), fontsize=fontsize)
+            else:
+                plt.plot(self.solution_time, f(var))
             plt.show()
 
+    def plot_eq(self, variables):
+        f = lambda var: self.solution[0][:, self.vars.index(var)]
+        self.plot(variables, f)
+
     def plot_add_eq(self, variables):
-        if type(variables) is not list:
-            variables = [variables]
-        for var in variables:
-            print(f'Variable: {var}')
-            fig = plt.plot(self.solution_time, self.subs_to_add_eq(var))
-            plt.show()
+        f = lambda var: self.subs_to_add_eq(var)
+        self.plot(variables, f)
