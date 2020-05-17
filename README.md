@@ -20,12 +20,12 @@
 Уравнения протестированы на 3 задачах. Одноименные юпитер-ноутбуки для данных задача лежат в папке `notebooks`. 
 
  1. Тело под действием внешней силы
- ![body_with_F](imgs/body_with_F_xieta.png)
+ [body_with_F](imgs/body_with_F_xieta.png)
  2. Волчок Лагранжа
- ![Lagrange_top](imgs/Lagrange_top.jpg)
+ [Lagrange_top](imgs/Lagrange_top.jpg)
  3. Треугольная платформа на рояльных колсеах
- ![platform](imgs/platform_new.png)
- ![wheel](imgs/wheel_new.png)
+ [platform](imgs/platform_new.png)
+ [wheel](imgs/wheel_new.png)
 
 ### Установка
 
